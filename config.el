@@ -42,10 +42,10 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (custom-set-faces
-             `(default ((t (:font "Menlo 18"))))
+             `(default ((t (:font "IBM Plex Mono"))))
              `(fixed-pitch ((t (:inherit (default)))))
              `(fixed-pitch-serif ((t (:inherit (default)))))
-             `(variable-pitch ((t (:font "Arial 18")))))))
+             `(variable-pitch ((t (:font "IBM Plex Sans")))))))
 
 ;; Themes are color customization packages which coordinate the
 ;; various colors, and in some cases, font-sizes for various aspects
@@ -70,7 +70,16 @@
 ;; You will most likely need to adjust this font size for your system!
 (custom-set-variables
  '(crafted-ui-default-font
-   '(:font "Menlo" :height 185)))
+   '(:font "IBM Plex Mono" :height 185)))
+
+;; Main typeface
+(set-face-attribute 'default nil :family "IBM Plex Mono" :height 185)
+
+;; Proportionately spaced typeface
+(set-face-attribute 'variable-pitch nil :family "IBM Plex Sans" :height 1.0)
+
+;; Monospaced typeface
+(set-face-attribute 'fixed-pitch nil :family "IBM Plex Mono" :height 1.5)
 
 (tool-bar-mode -1)          ; Disable the toolbar
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -137,13 +146,13 @@
 
 ;; Dashboard
 
-;; (crafted-package-install-package dashboard)
-;; (require 'dashboard)
-;; (dashboard-setup-startup-hook)
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+
 ;; ;; Set the title
-;; (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+(setq dashboard-banner-logo-title "Welcome to Crafted Emacs Dashboard")
 ;; ;; Set the banner
-;; (setq dashboard-startup-banner logo)
+(setq dashboard-startup-banner 'logo)
 ;; ;; Value can be
 ;; ;; 'official which displays the official emacs logo
 ;; ;; 'logo which displays an alternative emacs logo
@@ -151,10 +160,10 @@
 ;; ;; "path/to/your/image.gif", "path/to/your/image.png" or "path/to/your/text.txt" which displays whatever gif/image/text you would prefer
 
 ;; ;; Content is not centered by default. To center, set
-;; (setq dashboard-center-content t)
+(setq dashboard-center-content t)
 
 ;; ;; To disable shortcut "jump" indicators for each section, set
-;; (setq dashboard-show-shortcuts t)
+(setq dashboard-show-shortcuts t)
 
 
 ;; visual-fill-column-widthn
@@ -175,6 +184,7 @@
 (global-set-key (kbd "M-<down>") 'next-logical-line)
 
 ;; add general leader SPC
+(crafted-package-install-package 'general)
 (require 'general)
 
 (general-define-key
@@ -209,13 +219,14 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
-
+(crafted-package-install-package 'which-key)
 (require 'which-key)
 (which-key-mode)
 
 ;; spelling
 (setq ispell-program-name "aspell")
 
+(crafted-package-install-package 'markdown-mode)
 
 
 (provide 'config)
